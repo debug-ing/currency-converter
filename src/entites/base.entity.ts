@@ -10,14 +10,18 @@ export class BaseEntity {
 
   @CreateDateColumn({
     type: 'timestamp',
+    name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP(6)',
+    select: false,
   })
-  public created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
+    name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
+    select: false,
   })
-  public updated_at: Date;
+  updatedAt: Date;
 }
