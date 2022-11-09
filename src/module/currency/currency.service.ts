@@ -31,7 +31,12 @@ export class CurrencyService {
         const item = await this.currencyRepository.findOne({ where: { name } });
         if (item) {
             item.priceUsd = value;
-            await this.currencyRepository.save(item);
+            return await this.currencyRepository.save(item);
+        }else{
+            const currency = new CurrencyEntity();
+            currency.name = name;
+            currency.priceUsd = value;
+            return await this.currencyRepository.save(currency);
         }
     }
 
