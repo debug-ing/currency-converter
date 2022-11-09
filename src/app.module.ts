@@ -8,10 +8,7 @@ import { CurrencyModule } from './module/currency/currency.module';
 import { TransformInterceptor } from './shared/transform.interceptor';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(DB_CONFIG),
-    CurrencyModule,
-  ],
+  imports: [TypeOrmModule.forRoot(DB_CONFIG), CurrencyModule],
   controllers: [AppController],
   providers: [
     AppService,
