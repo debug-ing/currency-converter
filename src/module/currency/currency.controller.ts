@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
 import { CurrencyService } from "./currency.service";
 import { ConvertCurrencyDto, UpdateCurrencyDto } from "./dto";
 
@@ -27,5 +27,15 @@ export class CurrencyController {
     @Post('update')
     update(@Body() body: UpdateCurrencyDto) {
         return this.currencyService.update(body.name, body.usd);
+    }
+
+    @Delete('all')
+    deleteAllCurrency(){
+        return this.currencyService.deleteAllCurrency();
+    }
+
+    @Delete(':id')
+    deleteCurrency(@Param('id', ParseIntPipe) id: number) {
+        return this.currencyService.deleteCurrency(id);
     }
 }

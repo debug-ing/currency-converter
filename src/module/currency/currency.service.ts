@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CurrencyEntity } from "src/entites/currency.entity";
 import { Repository } from "typeorm";
@@ -27,7 +27,7 @@ export class CurrencyService {
 
     }
 
-    async update(name: string, value: number) {
+    async update(name: string, value: number):Promise<CurrencyEntity> {
         const item = await this.currencyRepository.findOne({ where: { name } });
         if (item) {
             item.priceUsd = value;
@@ -53,5 +53,17 @@ export class CurrencyService {
 
     private convertPrice(from: number, to: number, amount: number) {
         return (amount * to) / from;
+    }
+
+    async deleteCurrency(id: number){
+        const status = await this.currencyRepository.delete(id);
+        if(status.affected == 0){
+            throw new NotFoundException("Currency not found!");
+        }
+    }
+
+    async deleteAllCurrency(){
+        await this.currencyRepository.clear();
+        
     }
 }
