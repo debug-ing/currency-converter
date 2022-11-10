@@ -18,10 +18,14 @@ export class CurrencyService {
     return await this.currencyRepository.findOne({ where: { id } });
   }
 
-  async convertCurrency(from: string, to: string): Promise<{ price: number }> {
+  async convertCurrency(
+    from: string,
+    to: string,
+    amount: number,
+  ): Promise<{ price: number }> {
     const fromUsd = await this.getPriceUsd(from);
     const toUsd = await this.getPriceUsd(to);
-    const price = this.convertPrice(fromUsd, toUsd, 1);
+    const price = this.convertPrice(fromUsd, toUsd, amount);
     return { price };
   }
 
@@ -39,11 +43,7 @@ export class CurrencyService {
   }
 
   private async getPriceUsd(name: string): Promise<number> {
-    const currency = await this.currencyRepository.findOne({
-      where: {
-        name,
-      },
-    });
+    const currency = await this.currencyRepository.findOne({ where: { name } });
     if (currency) {
       return currency.priceUsd;
     }

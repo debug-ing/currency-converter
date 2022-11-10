@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class ConvertCurrencyDto {
   @IsNotEmpty()
@@ -8,4 +8,8 @@ export class ConvertCurrencyDto {
   @IsNotEmpty()
   @IsString()
   to: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  amount: number;
 }

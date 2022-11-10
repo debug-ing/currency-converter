@@ -26,7 +26,11 @@ export class CurrencyController {
 
   @Post('convert')
   convert(@Body() body: ConvertCurrencyDto) {
-    return this.currencyService.convertCurrency(body.from, body.to);
+    return this.currencyService.convertCurrency(
+      body.from,
+      body.to,
+      body.amount,
+    );
   }
 
   @Post('update')
